@@ -1,10 +1,11 @@
 (() => {
   const BADGE_ATTR = "data-edm-popularity-badge";
-  const ROW_ATTR = "data-edm-popularity-processed";
+  const ROW_SIG_ATTR = "data-edm-popularity-signature";
   const IPC_SCORE_LOOKUP = "cider-edm-popularity:get-score";
 
   const scoreCache = new Map();
   const inFlight = new Map();
+  let appendScheduled = false;
 
   const normalizeText = (value) =>
     String(value || "")
@@ -58,13 +59,7 @@
   };
 
   const findTrackRows = () => {
-    const selectors = [
-      '[role="row"]',
-      ".song-item",
-      ".track-item",
-      ".media-item",
-      ".list-item"
-    ];
+    const selectors = ['[role="row"]', ".song-item", ".track-item", ".media-item", ".list-item"];
 
     const rows = [];
     selectors.forEach((selector) => {
@@ -115,7 +110,9 @@
       row.querySelector(".song-artist") ||
       row.querySelector(".subtitle");
 
-    const title = (titleEl?.textContent || "").replace(/Score:\s*\w+/gi, "").trim();
+    const title = (titleEl?.textContent || "")
+      .replace(/Score:\s*(?:N\/A|\d+)/gi, "")
+      .trim();
     const artist = (artistEl?.textContent || "").trim();
 
     return { title, artist };
@@ -155,11 +152,8 @@
     return request;
   };
 
-  const decorateRow = async (row, badge) => {
-    const appleSongId = extractAppleSongId(row);
-    const { title, artist } = extractTitleArtist(row);
-    const trackKey = makeTrackKey(title, artist);
-
+  const decorateRow = async (badge, meta) => {
+    const { appleSongId, title, artist, trackKey } = meta;
     if (!appleSongId && (!title || !artist)) {
       badge.textContent = "Score: N/A";
       return;
@@ -174,7 +168,13 @@
 
     rows.forEach((row) => {
       if (!(row instanceof HTMLElement)) return;
-      if (row.hasAttribute(ROW_ATTR)) return;
+
+      const appleSongId = extractAppleSongId(row);
+      const { title, artist } = extractTitleArtist(row);
+      const trackKey = makeTrackKey(title, artist);
+      const rowSignature = `${appleSongId || ""}::${trackKey}`;
+
+      if (row.getAttribute(ROW_SIG_ATTR) === rowSignature) return;
 
       const titleHost =
         row.querySelector('[data-testid*="title" i]') ||
@@ -188,22 +188,40 @@
         titleHost.appendChild(badge);
       }
 
-      row.setAttribute(ROW_ATTR, "1");
+      row.setAttribute(ROW_SIG_ATTR, rowSignature);
 
       if (badge instanceof HTMLElement) {
-        decorateRow(row, badge);
+        decorateRow(badge, { appleSongId, title, artist, trackKey });
       }
     });
   };
 
+  const scheduleAppendBadges = () => {
+    if (appendScheduled) return;
+    appendScheduled = true;
+
+    const run = () => {
+      appendScheduled = false;
+      appendBadges();
+    };
+
+    if (typeof window.requestAnimationFrame === "function") {
+      window.requestAnimationFrame(run);
+    } else {
+      setTimeout(run, 0);
+    }
+  };
+
   const startObserver = () => {
     const observer = new MutationObserver(() => {
-      appendBadges();
+      scheduleAppendBadges();
     });
 
     observer.observe(document.body, {
       childList: true,
-      subtree: true
+      subtree: true,
+      attributes: true,
+      characterData: true
     });
 
     appendBadges();

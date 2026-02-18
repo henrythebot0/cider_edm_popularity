@@ -85,6 +85,7 @@ function calculateScore(metricMap) {
 function ensureSchema(db) {
   db.exec(`
     PRAGMA journal_mode = WAL;
+    PRAGMA foreign_keys = ON;
 
     CREATE TABLE IF NOT EXISTS tracks (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -145,9 +146,10 @@ function tableCounts(db) {
 
 async function main() {
   fs.mkdirSync(dataDir, { recursive: true });
-
-  const db = new Database(dbPath);
-  ensureSchema(db);
+  let db;
+  try {
+    db = new Database(dbPath);
+    ensureSchema(db);
 
   const upsertSource = db.prepare(`
     INSERT INTO sources(name, source_type, source_url, updated_at)
@@ -387,11 +389,12 @@ async function main() {
     adapters_used: adapters.map((adapter) => adapter.name)
   };
 
-  fs.writeFileSync(lastUpdatePath, `${JSON.stringify(updateSummary, null, 2)}\n`, "utf8");
+    fs.writeFileSync(lastUpdatePath, `${JSON.stringify(updateSummary, null, 2)}\n`, "utf8");
 
-  db.close();
-
-  console.log("[update-db] done", JSON.stringify(updateSummary));
+    console.log("[update-db] done", JSON.stringify(updateSummary));
+  } finally {
+    if (db) db.close();
+  }
 }
 
 main().catch((error) => {

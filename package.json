@@ -7,7 +7,8 @@
   "scripts": {
     "update:db": "node scripts/update_db.mjs",
     "update:db:quick": "node scripts/update_db.mjs --only-apple-rss",
-    "lint": "node --check index.js && node --check index.frontend.js && node --check scripts/update_db.mjs && node --check scripts/adapters/apple_music_rss.mjs"
+    "lint": "node --check index.js && node --check index.frontend.js && node --check scripts/update_db.mjs && node --check scripts/smoke_test.mjs && node --check scripts/adapters/apple_music_rss.mjs",
+    "test:smoke": "node scripts/smoke_test.mjs"
   },
   "dependencies": {
     "better-sqlite3": "^11.8.1",
