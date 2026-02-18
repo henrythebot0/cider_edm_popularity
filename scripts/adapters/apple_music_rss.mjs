@@ -5,8 +5,31 @@ const USER_AGENT = "cider-edm-popularity/0.1 (+https://github.com)";
 const REQUEST_TIMEOUT_MS = 7000;
 const MAX_RETRIES = 2;
 
-const COUNTRIES = ["us", "gb", "ca", "au"];
-const CHARTS = ["most-played", "top-songs"];
+// Keep calls low but large enough to yield thousands of unique tracks via multi-country charts.
+const COUNTRIES = [
+  "us",
+  "gb",
+  "ca",
+  "au",
+  "de",
+  "fr",
+  "nl",
+  "es",
+  "it",
+  "se",
+  "no",
+  "dk",
+  "fi",
+  "pl",
+  "br",
+  "mx",
+  "jp",
+  "kr",
+  "sg"
+];
+
+// Verified chart type for songs.
+const CHARTS = ["most-played"];
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
