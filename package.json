@@ -1,7 +1,16 @@
 {
   "name": "cider-edm-popularity-plugin",
   "version": "0.1.0",
-  "description": "Initial Cider plugin scaffold for per-track popularity badges.",
+  "description": "Cider plugin for local EDM popularity scores backed by SQLite.",
   "author": "Your Name",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "update:db": "node scripts/update_db.mjs",
+    "update:db:quick": "node scripts/update_db.mjs --only-apple-rss",
+    "lint": "node --check index.js && node --check index.frontend.js && node --check scripts/update_db.mjs && node --check scripts/adapters/apple_music_rss.mjs"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "node-fetch": "^3.3.2"
+  }
 }

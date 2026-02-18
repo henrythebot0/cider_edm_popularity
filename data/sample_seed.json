@@ -1,0 +1,56 @@
+{
+  "source": "sample_seed",
+  "generated_at": "2026-02-18T00:00:00.000Z",
+  "tracks": [
+    {
+      "apple_song_id": "1719273538",
+      "title": "Losing It",
+      "artist": "FISHER",
+      "signals": {
+        "youtube_views_m": 142,
+        "playlist_mentions": 87,
+        "dj_support": 92
+      }
+    },
+    {
+      "apple_song_id": "1450702038",
+      "title": "Piece Of Your Heart",
+      "artist": "MEDUZA feat. Goodboys",
+      "signals": {
+        "youtube_views_m": 108,
+        "playlist_mentions": 79,
+        "dj_support": 85
+      }
+    },
+    {
+      "apple_song_id": "1473888616",
+      "title": "Turn Off The Lights",
+      "artist": "Chris Lake",
+      "signals": {
+        "youtube_views_m": 31,
+        "playlist_mentions": 56,
+        "dj_support": 73
+      }
+    },
+    {
+      "apple_song_id": "1614524145",
+      "title": "Where You Are",
+      "artist": "John Summit & HAYLA",
+      "signals": {
+        "youtube_views_m": 26,
+        "playlist_mentions": 69,
+        "dj_support": 81
+      }
+    },
+    {
+      "apple_song_id": "1651119241",
+      "title": "Rumble",
+      "artist": "Skrillex, Fred again.. & Flowdan",
+      "signals": {
+        "youtube_views_m": 23,
+        "playlist_mentions": 63,
+        "dj_support": 88
+      }
+    }
+  ]
+}

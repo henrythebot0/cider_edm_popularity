@@ -1,0 +1,9 @@
+node_modules/
+package-lock.json
+
+# local data artifacts
+data/edm_popularity.sqlite
+data/last_update.json
+
+# optional: keep sample seed tracked
+!data/sample_seed.json
