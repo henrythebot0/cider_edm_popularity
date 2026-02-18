@@ -19,6 +19,11 @@ If you’re helping test this on a different machine and you’re **not** a deve
 - This plugin folder (download as a ZIP from the repo)
 - A prebuilt database file: `edm_popularity.sqlite` (we’ll provide it)
 
+### Downloads (for testers)
+- Google Drive folder (public): https://drive.google.com/drive/folders/1Yt3D9qolgf8Et0z-Dr_Ps9Tf9Jec-ej0
+- One-file UAT ZIP (plugin + DB): https://drive.google.com/file/d/1TGruV-Wbt2FLz_bLOA4lXdRm3d78NXiA/view
+- DB only (`edm_popularity.sqlite`): https://drive.google.com/file/d/1MHg9_vJRcmp2xMBRNdhk7YXRoCG-XrxO/view
+
 ### Install steps (no coding)
 1) **Download** the plugin ZIP from this repo and unzip it.
 2) Open **Cider → Settings → Plugins** and click **Open plugins folder** (wording may vary).
