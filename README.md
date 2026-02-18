@@ -10,7 +10,34 @@ Cider 2.x plugin that decorates track rows with a local popularity score from a 
 - `data/sample_seed.json`: keyless seed data used when external sources are not reliable.
 - `docs/testing.md`: manual test plan for macOS + Cider 2.x.
 
-## Setup
+## UAT / Non-developer install (recommended)
+
+If you’re helping test this on a different machine and you’re **not** a developer, you should **not** need Node.js or any terminal commands.
+
+### What you’ll need
+- Cider 2.x installed
+- This plugin folder (download as a ZIP from the repo)
+- A prebuilt database file: `edm_popularity.sqlite` (we’ll provide it)
+
+### Install steps (no coding)
+1) **Download** the plugin ZIP from this repo and unzip it.
+2) Open **Cider → Settings → Plugins** and click **Open plugins folder** (wording may vary).
+3) Copy the unzipped folder into the plugins folder.
+   - You should end up with a folder like: `<Cider plugins folder>/cider_edm_popularity/`
+4) Ensure the database file is present at:
+   - `<Cider plugins folder>/cider_edm_popularity/data/edm_popularity.sqlite`
+5) Back in Cider, **enable** the plugin (or “Reload plugins”).
+6) Open any view with a track list (playlist/album/search results) and confirm you see badges like:
+   - `Score: 73`
+   - If there is no match, it should safely show `Score: N/A`.
+
+### What to report (UAT checklist)
+- Does the badge appear reliably?
+- Does it update from `N/A` → a number within a second or two?
+- Any UI lag when scrolling long lists?
+- Any errors in Cider’s DevTools console after enabling?
+
+## Developer setup
 ```bash
 make install
 make update-db
