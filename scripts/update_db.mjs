@@ -58,7 +58,11 @@ function calculateScore(metricMap) {
   }
 
   const weights = {
-    chart_points: 0.55,
+    // Keyless sources we can get today.
+    beatport_points: 0.6,
+    chart_points: 0.4,
+
+    // Seed/placeholder sources.
     youtube_views_m: 0.2,
     playlist_mentions: 0.35,
     dj_support: 0.45
