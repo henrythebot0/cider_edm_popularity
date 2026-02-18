@@ -1,0 +1,7 @@
+{
+  "name": "cider-edm-popularity-plugin",
+  "version": "0.1.0",
+  "description": "Initial Cider plugin scaffold for per-track popularity badges.",
+  "author": "Your Name",
+  "license": "MIT"
+}
